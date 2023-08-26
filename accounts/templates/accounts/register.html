@@ -1,0 +1,98 @@
+{% extends "base.html" %} 
+{% load static %} 
+{% block content %}
+<div class="container">
+	<!-- Messages -->
+	{% include 'partials/_messages.html' %}
+	
+	<main class="d-flex justify-content-center flex-column mt-5">
+		<div class="w-95 m-auto">
+			<h2>
+				<img
+					class="mb-4"
+					src="{% static 'img/helpdesk.jpg' %}"
+					alt=""
+					width="50" />
+				Register
+			</h2>
+
+			<form action="{% url 'register' %}" method="POST">
+				{% csrf_token %}
+				<div class="row">
+					<div class="col mb-4">
+						<label for="first_name" class="form-label">
+                            First Name
+                        </label>
+						<input
+							class="form-control"
+							autofocus
+							type="text"
+							name="first_name"
+							placeholder="First Name" />
+					</div>
+					<div class="col mb-4">
+						<label for="last_name" class="form-label">
+                            Last Name
+                        </label>
+						<input
+							class="form-control"
+							autofocus
+							type="text"
+							name="last_name"
+							placeholder="Last Name" />
+					</div>
+				</div>
+				<div class="row">
+					<div class="mb-4 col">
+						<label for="username" class="form-label">
+                            Username
+                        </label>
+						<input
+							class="form-control"
+							autofocus
+							type="text"
+							name="username"
+							placeholder="Username" />
+					</div>
+					<div class="mb-4 col">
+						<label for="email" class="form-label">email</label>
+						<input
+							class="form-control"
+							type="email"
+							name="email"
+							placeholder="Email Address" />
+					</div>
+				</div>
+				<div class="mb-4">
+					<label for="password" class="form-label">Password</label>
+					<input
+						class="form-control"
+						type="password"
+						name="password"
+						placeholder="Password" />
+				</div>
+				<div class="mb-4">
+					<label for="confirmation" class="form-label">
+                    Confirm password
+                    </label>
+					<input
+						class="form-control"
+						type="password"
+						name="confirmation"
+						placeholder="Confirm Password" />
+				</div>
+
+				<button type="submit" class="btn btn-primary w-100 py-2">
+					Register
+				</button>
+			</form>
+
+			<h4 class="mt-4">Already have an account?
+			    <span>
+                    <a href="{% url 'login' %}">  Log In here.</a>
+                </span>
+            </h4>
+		</div>
+	</main>
+</div>
+{% endblock content %}

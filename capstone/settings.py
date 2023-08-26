@@ -99,6 +99,13 @@ DATABASES = {
 
 AUTH_USER_MODEL = "accounts.User"
 
+# Messages
+from django.contrib.messages import constants as messages
+
+MESSAGE_TAGS = {
+    messages.ERROR: "danger",
+}
+
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
