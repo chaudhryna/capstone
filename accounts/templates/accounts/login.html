@@ -17,7 +17,7 @@
 	<form action="{% url 'login' %}" method="POST">
 		{% csrf_token %}
 		<div class="mb-4">
-			<label for="username" class="form-label">Username</label>
+			<label for="username required" class="form-label">Username</label>
 			<input
 				type="text"
 				autofocus
@@ -28,7 +28,7 @@
                 placeholder="Username" />
 		</div>
 		<div class="mb-4">
-			<label for="password" class="form-label">Password</label>
+			<label for="password" class="form-label required">Password</label>
 			<input type="password" class="form-control" id="password" name="password" placeholder="Password" />
 		</div>
 		<button type="submit" class="btn btn-primary w-100 py-2">Submit</button>

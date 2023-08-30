@@ -1,0 +1,141 @@
+{% extends 'base.html' %} 
+{% load static %}
+{% block title %} {% endblock title %} 
+
+{% block content %}
+<div class="container-md">
+	<div class="row g-4 mt-5">
+		<div class="col-md-3">
+			<h2 class="mb-5">My Profile</h2>
+			<img
+						class="rounded-circle shadow-lg mb-2"
+						width="100"
+						src="{{ user_profile.image.url }}"
+						alt="profile pic" />
+			<div>
+				<div class="card shadow">
+					<div class="card-body">
+						<h5 class="card-title text-center">{{ user_profile.title }}</h5>
+						<ul class="list-group list-group-flush">
+							<li class="list-group-item">
+								<strong>First Name</strong>: 
+								{{ user.first_name }}
+							</li>
+							<li class="list-group-item">
+								<strong>Last Name</strong>: 
+								{{ user.last_name }}
+							</li>
+							<li class="list-group-item">
+								<strong>Username</strong>: 
+								{{ user.username }}
+							</li>
+							<li class="list-group-item">
+								<strong>Email</strong>: 
+								{{ user.email }}
+							</li>
+							<li class="list-group-item">
+								<strong>Phone</strong>: 
+								{{ user_profile.phone }}
+							</li>
+						</ul>
+						<a class="btn btn-info text-white mt-2" data-bs-toggle="modal"
+                		data-bs-target="#myModal" href="#">
+                    		Update my profile
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Modal -->
+		<div class="modal fade" id="myModal">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="myModalLabel">
+                <img
+					class="mb-4"
+					src="{% static 'img/helpdesk.jpg' %}"
+					alt=""
+					width="50" />
+					Update Profile
+              </h1>
+              <button class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+              <form action="{% url 'update_profile'  %}" method="POST" enctype="multipart/form-data">
+				{% csrf_token %}
+				<div class="row">
+					<div class="col mb-4">
+						<label for="first_name" class="form-label">
+                            First Name
+                        </label>
+						<input
+							class="form-control"
+							autofocus
+							type="text"
+							name="first_name"
+							placeholder="First Name" 
+							value="{{ user.first_name }}"/>
+					</div>
+					<div class="col mb-4">
+						<label for="last_name" class="form-label">
+                            Last Name
+                        </label>
+						<input
+							class="form-control"
+							autofocus
+							type="text"
+							name="last_name"
+							placeholder="Last Name"
+							value="{{ user.last_name }}" />
+					</div>
+				<div class="row">
+					<div class="mb-4 col">
+						<label for="email" class="form-label">Email Address</label>
+						<input
+							class="form-control"
+							type="email"
+							name="email"
+							placeholder="Email Address"
+							value="{{ user.email }}" />
+					</div>
+					<div class="mb-4 col">
+						<label for="phone" class="form-label">Phone Number</label>
+						<input
+							class="form-control"
+							type="phone"
+							name="phone"
+							placeholder="Phone number"
+							value="{{ user_profile.phone }}" />
+					</div>
+				</div>
+				<div class="row">
+					<div class="mb-4 col">
+						<p>This is the file to upload</p>
+						<label for="image" class="form-label">New Profile Image</label>
+						<input class="form-control" type="file" name="avatar">
+					</div>
+				</div>
+				</div>
+            </div>
+            <div class="modal-footer">
+              <button class="btn btn-secondary" data-bs-dismiss="modal">
+                Close
+              </button>
+              <button class="btn btn-primary">Save changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+	  <!-- Tickets -->
+		<div class="col-md-9">
+			<h2 class="d-inline">My Tickets</h2>
+			<button class="btn btn-primary float-end" href="#">
+				Submit a New Ticket
+			</button>
+			<hr />
+		</div>
+
+	</div>
+</div>
+{% endblock content %}
