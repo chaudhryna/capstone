@@ -65,39 +65,9 @@
               <form action="{% url 'update_profile'  %}" method="POST" enctype="multipart/form-data">
 				{% csrf_token %}
 				<div class="row">
-					<div class="col mb-4">
-						<label for="first_name" class="form-label">
-                            First Name
-                        </label>
-						<input
-							class="form-control"
-							autofocus
-							type="text"
-							name="first_name"
-							placeholder="First Name" 
-							value="{{ user.first_name }}"/>
-					</div>
-					<div class="col mb-4">
-						<label for="last_name" class="form-label">
-                            Last Name
-                        </label>
-						<input
-							class="form-control"
-							autofocus
-							type="text"
-							name="last_name"
-							placeholder="Last Name"
-							value="{{ user.last_name }}" />
-					</div>
-				<div class="row">
 					<div class="mb-4 col">
-						<label for="email" class="form-label">Email Address</label>
-						<input
-							class="form-control"
-							type="email"
-							name="email"
-							placeholder="Email Address"
-							value="{{ user.email }}" />
+						<label for="title" class="form-label">Title</label>
+						<input type="text" name="title" class="form-control" placeholder="Title" value="{{ user_profile.title }}" />
 					</div>
 					<div class="mb-4 col">
 						<label for="phone" class="form-label">Phone Number</label>
@@ -113,16 +83,13 @@
 					<div class="mb-4 col">
 						<p>This is the file to upload</p>
 						<label for="image" class="form-label">New Profile Image</label>
-						<input class="form-control" type="file" name="avatar">
+						<input class="form-control" type="file" name="image">
 					</div>
-				</div>
 				</div>
             </div>
             <div class="modal-footer">
-              <button class="btn btn-secondary" data-bs-dismiss="modal">
-                Close
-              </button>
-              <button class="btn btn-primary">Save changes</button>
+                <a href="{% url 'profile' %}" class="btn btn-secondary" data-bs-dismiss="modal">Close</a>
+              <button class="btn btn-primary" type="submit">Save changes</button>
             </div>
           </div>
         </div>
@@ -135,7 +102,7 @@
 			</button>
 			<hr />
 		</div>
-
+		
 	</div>
 </div>
 {% endblock content %}

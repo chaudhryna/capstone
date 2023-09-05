@@ -1,12 +1,14 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout 
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.core.files.storage import FileSystemStorage
+from django.http import HttpResponse
 from django.db import IntegrityError
 from django.urls import reverse
 
-from .models import User, Profile
+from accounts.models import User, Profile
+from accounts.forms import UpdateProfileForm
 
 def dashboard(request):
     return render(request, 'accounts/dashboard.html')
@@ -75,29 +77,20 @@ def profile_view(request):
 
 @login_required
 def update_profile(request):
-    user_id = request.user.id
+    user_id = request.user.id 
+    user_profile = get_object_or_404(Profile, pk=user_id)
     
-    if request.method == "POST" and request.FILES['avatar']:
-        first_name = request.POST["first_name"]
-        last_name = request.POST["last_name"]
-        email = request.POST["email"]
-        phone = request.POST["phone"]
+    if request.method == 'POST':
+        form = UpdateProfileForm(request.POST, request.FILES,instance=request.user.profile)
         
-        image = request.FILES['avatar']
-        print(image.size, image.name)
-        
-        user_profile = Profile.objects.get(pk=user_id)
-        user = User.objects.get(pk=user_id)
-        user.first_name = first_name
-        user.last_name = last_name
-        user.email = email
-        user_profile.phone = phone
-        user_profile.image = image 
-        user.save()
-        user_profile.save()
-        
+        if form.is_valid():
+            form.save()
+            messages.success(request, f'Your account has been updated.')
+            return redirect('profile')
+    else:
+        form = UpdateProfileForm(instance=request.user.profile)
+    
     context = {
-        'user_profile': user_profile,
-        'user': user,
-        }
-    return render(request, "accounts/profile.html", context)
+        'form': form,
+    }
+    return render(request, 'accounts/profile.html', context)
