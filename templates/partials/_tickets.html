@@ -1,0 +1,50 @@
+<!-- Tickets -->
+{% if tickets %}
+<div class="container">
+	<div class="row">
+	{% for ticket in tickets %}
+		<div class="col-lg-6">
+			<div class="card shadow p-3 mb-5 bg-body rounded">
+				<div class="card-header">
+					<h5 class="card-title">
+						Ticket Number: <strong> {{ ticket.id }} </strong>
+					</h5>
+				</div>
+				<div class="card-body">
+					<h6 class="card-subtitle my-2 text-muted">
+						Opened by:
+						<span class="fw-bold"
+							>{{ ticket.customer.first_name }} 
+							{{ ticket.customer.last_name }}</span
+						>
+					</h6>
+					<p class="card-text">
+						<span class="text-muted">Subject:</span>
+						<span class="fw-bold">{{ ticket.title }}</span>
+					</p>
+					{% if ticket.assignedTech %}
+					<p class="card-text">
+						<span class="text-muted">Assigned Tech: </span>
+						{{ ticket.assignedTech.user.firstName }} {{
+						ticket.assignedTech.user.lastName }}
+					</p>
+					{% endif %}
+					<p class="text-muted">
+						Status:
+						<span class="text-danger fw-bold">
+							{{ ticket.status }}
+						</span>
+					</p>
+
+					{% if ticket.customer == user %}
+					<a href="#" class="btn btn-primary">Ticket Details</a>
+					{% else %}
+					<a href="#" class="btn btn-primary"> Update Ticket </a>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+		{% endfor %}
+	</div>
+</div>
+{% endif %}

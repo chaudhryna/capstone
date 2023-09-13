@@ -8,9 +8,18 @@ from django.db import IntegrityError
 from django.urls import reverse
 
 from accounts.models import User, Profile
+from tickets.models import Ticket
+
 from accounts.forms import UpdateProfileForm
 
 def dashboard(request):
+    if request.user.is_authenticated:
+        if Ticket.objects.filter(customer=request.user.id).exists():
+            user_tickets = Ticket.objects.filter(customer=request.user.id).order_by('-created_date')
+            context = {
+                'tickets': user_tickets
+            }
+            return render(request, 'accounts/dashboard.html', context)
     return render(request, 'accounts/dashboard.html')
 
 def register(request):
@@ -70,8 +79,10 @@ def logout_view(request):
 def profile_view(request):
     user_id = request.user.id
     user_profile = Profile.objects.get(user_id=user_id)
+    user_tickets = Ticket.objects.filter(customer=user_id).order_by('-created_date')
     context = {
         'user_profile': user_profile,
+        'tickets': user_tickets
         }
     return render(request, "accounts/profile.html", context)
 
@@ -81,7 +92,8 @@ def update_profile(request):
     user_profile = get_object_or_404(Profile, pk=user_id)
     
     if request.method == 'POST':
-        form = UpdateProfileForm(request.POST, request.FILES,instance=request.user.profile)
+        form = UpdateProfileForm(
+            request.POST, request.FILES, instance=request.user.profile)
         
         if form.is_valid():
             form.save()

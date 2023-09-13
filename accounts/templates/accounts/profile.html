@@ -1,16 +1,22 @@
 {% extends 'base.html' %} 
 {% load static %}
-{% block title %} {% endblock title %} 
+
+{% block title %}
+{{user.username}}'s Tickets
+{% endblock title %} 
 
 {% block content %}
-<div class="container-md">
+<div class="container">
+<!-- Messages -->
+{% include 'partials/_messages.html' %}
+
 	<div class="row g-4 mt-5">
-		<div class="col-md-3">
+		<div class="col-lg-3">
 			<h2 class="mb-5">My Profile</h2>
 			<img
 						class="rounded-circle shadow-lg mb-2"
 						width="100"
-						src="{{ user_profile.image.url }}"
+						src="{{ user.profile.image.url }}"
 						alt="profile pic" />
 			<div>
 				<div class="card shadow">
@@ -38,10 +44,10 @@
 								{{ user_profile.phone }}
 							</li>
 						</ul>
-						<a class="btn btn-info text-white mt-2" data-bs-toggle="modal"
-                		data-bs-target="#myModal" href="#">
+						<button class="btn btn-info text-white mt-2" data-bs-toggle="modal"
+                		data-bs-target="#myModal">
                     		Update my profile
-						</a>
+						</button>
 					</div>
 				</div>
 			</div>
@@ -62,7 +68,7 @@
               <button class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
-              <form action="{% url 'update_profile'  %}" method="POST" enctype="multipart/form-data">
+              <form action="{% url 'update_profile'  %}" method="POST" enctype="multipart/form-data" id="post-form">
 				{% csrf_token %}
 				<div class="row">
 					<div class="mb-4 col">
@@ -81,28 +87,37 @@
 				</div>
 				<div class="row">
 					<div class="mb-4 col">
-						<p>This is the file to upload</p>
-						<label for="image" class="form-label">New Profile Image</label>
-						<input class="form-control" type="file" name="image">
+						<!-- cropper area-->
+						<label for="id_image">Profile Picture</label>
+						<input type="file" id="id_image" name="image" accept="image/*">
+					</div>
+				</div>
+				<div class="row">
+					<div class="mb-4 col">
+						<!-- cropper image-box-->
+						<div id="image-box" class="image-container"></div>
+						<button class="btn btn-info text-white" id="crop-btn" style="width: 100%; margin-top: 10px; display: none;"
+						type="button">Crop</button>
 					</div>
 				</div>
             </div>
             <div class="modal-footer">
                 <a href="{% url 'profile' %}" class="btn btn-secondary" data-bs-dismiss="modal">Close</a>
-              <button class="btn btn-primary" type="submit">Save changes</button>
+              <button class="btn btn-primary" type="submit" id="confirm-btn">Save changes</button>
             </div>
           </div>
         </div>
-      </div>
+    </div>
 	  <!-- Tickets -->
-		<div class="col-md-9">
+		<div class="col-lg-9">
 			<h2 class="d-inline">My Tickets</h2>
-			<button class="btn btn-primary float-end" href="#">
+			<a class="btn btn-primary float-end" 
+			href="{% url 'create_ticket' %}">
 				Submit a New Ticket
-			</button>
+			</a>
 			<hr />
+			<!-- Tickets -->
+			{% include 'partials/_tickets.html' %}
 		</div>
-		
 	</div>
-</div>
 {% endblock content %}

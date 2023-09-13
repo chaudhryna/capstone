@@ -13,7 +13,7 @@ class User(AbstractUser):
     
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
-    phone = models.CharField(max_length=100)
+    phone = models.CharField(max_length=100, blank=True)
     image = models.ImageField(default='default.jpg',upload_to='profile_pics')
     title = models.CharField(max_length=100, blank=True)
     
@@ -22,12 +22,7 @@ class Profile(models.Model):
 
     def save(self):
             super().save()
-            
             img = Image.open(self.image.path)
-            if img.height > 300 or img.width > 300:
-                output_size = (300, 300)
-                img.thumbnail(output_size)
-                img.save(self.image.path)
     
 class Department(models.Model):
     name = models.CharField(max_length=128)

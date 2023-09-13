@@ -1,0 +1,25 @@
+{% extends 'base.html' %} 
+{% load crispy_forms_tags %}
+
+{% block title %}
+Submit a Ticket
+{% endblock title %} 
+
+{% block content %}
+<div class="container">
+<!-- Messages -->
+{% include 'partials/_messages.html' %}
+
+<h1 class="my-3">Submit a New Ticket</h1>
+
+    <form action="{% url 'create_ticket' %}" method="POST">
+    {% csrf_token %}
+
+    {{ form|crispy }}
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+
+</div>
+{% endblock content %}
