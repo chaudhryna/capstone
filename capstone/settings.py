@@ -97,8 +97,6 @@ DATABASES = {
     }
 }
 
-AUTH_USER_MODEL = "accounts.User"
-
 # Messages
 from django.contrib.messages import constants as messages
 

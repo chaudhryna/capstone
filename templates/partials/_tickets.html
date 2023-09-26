@@ -37,14 +37,20 @@
 					</p>
 
 					{% if ticket.customer == user %}
-					<a href="#" class="btn btn-primary">Ticket Details</a>
+					<button  href="{% url 'ticket_detail' ticket.id %}" class="btn btn-primary btn-modal" data-bs-toggle="modal" data-bs-target="#ticketModal{{ ticket.id }}">
+							Ticket Details
+					</button>
+
 					{% else %}
-					<a href="#" class="btn btn-primary"> Update Ticket </a>
+						<a href="#" class="btn btn-primary">Update Ticket</a>
 					{% endif %}
 				</div>
 			</div>
 		</div>
+		{% include "partials/_ticket_detail.html" %}
 		{% endfor %}
+		
 	</div>
 </div>
+
 {% endif %}

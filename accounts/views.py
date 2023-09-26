@@ -79,12 +79,14 @@ def logout_view(request):
 def profile_view(request):
     user_id = request.user.id
     user_profile = Profile.objects.get(user_id=user_id)
-    user_tickets = Ticket.objects.filter(customer=user_id).order_by('-created_date')
-    context = {
-        'user_profile': user_profile,
-        'tickets': user_tickets
-        }
-    return render(request, "accounts/profile.html", context)
+    if Ticket.objects.filter(customer=user_id).exists():
+        user_tickets = Ticket.objects.filter(customer=user_id).order_by('-created_date')
+        context = {
+            'user_profile': user_profile,
+            'tickets': user_tickets
+            }
+        return render(request, "accounts/profile.html", context)
+    return render(request, 'accounts/profile.html')
 
 @login_required
 def update_profile(request):
@@ -105,4 +107,4 @@ def update_profile(request):
     context = {
         'form': form,
     }
-    return render(request, 'accounts/profile.html', context)
+    return redirect('profile.html')

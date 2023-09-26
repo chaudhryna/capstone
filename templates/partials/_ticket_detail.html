@@ -1,0 +1,49 @@
+<!-- Modal -->
+<div class="modal fade" id="ticketModal{{ ticket.id }}">
+    <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+        <h1 class="modal-title fs-5" id="modalLabel">
+            Ticket Number: <strong>{{ ticket.id }}</strong>
+        </h1>
+        <button class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+			<h6 class="card-subtitle my-2 text-muted">
+				Opened by:
+				<span class="fw-bold"
+					>{{ ticket.customer.first_name }} 
+					{{ ticket.customer.last_name }}
+				</span>
+			</h6>
+			<p>
+				<span class="text-muted">Subject:</span>
+				<span class="fw-bold">{{ ticket.title }}</span>
+			</p>
+			<p>
+				<span class="text-muted">Details:</span>
+				<span>{{ ticket.details }}</span>
+			</p>
+			{% if ticket.assignedTech %}
+			<p>
+				<span class="text-muted">Assigned Tech: </span>
+				{{ ticket.assignedTech.user.firstName }} {{
+				ticket.assignedTech.user.lastName }}
+			</p>
+			{% endif %}
+			<p class="text-muted">
+				Status:
+				<span class="text-danger fw-bold">
+					{{ ticket.status }}
+				</span>
+			</p>
+        </div>
+        <div class="modal-footer">
+        <button class="btn btn-secondary" data-bs-dismiss="modal">
+            Close
+        </button>
+        </div>
+    </div>
+    </div>
+</div>
+<!-- End modal -->

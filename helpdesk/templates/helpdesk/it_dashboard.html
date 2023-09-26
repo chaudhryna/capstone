@@ -1,0 +1,20 @@
+{% extends 'base.html' %} 
+
+{% block content %}
+<div class="container">
+	<!-- Messages -->
+	{% include 'partials/_messages.html' %}
+
+	<h1 class="my-3">IT Dashboard View</h1>
+
+	{% if tickets %}
+	<!-- Tickets -->
+	<div class="col-lg-12">
+		<h2 class="mb-4">All Tickets</h2>
+		<!-- Tickets -->
+		{% include 'partials/_tickets.html' %}
+	</div>
+	{% endif %} 
+</div>
+
+{% endblock content %}
