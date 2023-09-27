@@ -4,6 +4,8 @@ from django.shortcuts import render, redirect
 from django.views.generic.detail import DetailView
 from django.utils import timezone
 
+from helpdesk.decorators import it_staff_required
+
 from tickets.models import Ticket
 from tickets.forms import CreateTicketForm
 
@@ -39,4 +41,13 @@ def ticket_detail(request, ticket_id):
         'ticket': ticket,
     }
     return render(request, "partials/_ticket_detail.html", context)
+
+@it_staff_required
+def update_ticket(request, ticket_id):
+    ticket = Ticket.objects.get(pk=ticket_id)
+    
+    context = {
+        'ticket': ticket,
+    }
+    return render(request, "tickets/update_ticket.html", context)
     

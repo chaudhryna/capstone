@@ -1,0 +1,106 @@
+{% extends 'base.html' %} 
+{% load crispy_forms_tags %}
+
+{% block title %}
+Submit a Ticket
+{% endblock title %} 
+
+{% block content %}
+<div class="container">
+<!-- Messages -->
+{% include 'partials/_messages.html' %}
+
+<div class="container mt-5 col-12 pt-5">
+      <div class="card shadow p-3 mb-3 bg-custom rounded mt-5">
+
+        <div class="card-body">
+          <h2 class="d-flex justify-content-between">Ticket Details <span class="status text-danger">
+              {{ ticket.status }} 
+            </span></h2>
+          <hr>
+          <div class="row">
+            <div class="col-lg-6">
+              <h3>Number: {{ ticket.id }}  
+              </h3>
+              <p><strong>Created on: </strong>
+                {{ ticket.created_date }} 
+              </p>
+                <p><strong>Due date: </strong>
+                  {{ ticket.dueDate }}
+                </p>
+            
+                  <p><strong>Type of Issue: </strong>
+                    <span class="text-primary">{{ ticket.type_of_issue }}</span>
+                  </p>
+
+                  <p><strong>Title: </strong>
+                    {{ ticket.title }} 
+                  </p>
+                  <p><strong>Details: </strong>
+                    {{ ticket.details }} 
+                  </p>
+                  <hr>
+                  {% if ticket.assignedTech %}
+                    <p><strong>Assigned Tech:</strong>
+                        {{ ticket.assignedTech.firstName }} 
+                        {{ ticket.assignedTech.lastName }} 
+                    </p>
+                    {% endif %}
+                      <hr>
+                      <p><strong>Tech Notes:</strong></p>
+                    <p>
+                        {{ ticket.techNotes.date }}   -
+                        {{ ticket.techNotes.body }}
+                    </p>   
+            </div>
+
+            <div class="col-lg-6">
+              <h3>Update Ticket</h3>
+              <form action="{% url 'update_ticket' ticket.id %}" method="POST">
+
+                <div class="mb-3">
+                  <label for='status' class="form-label fw-bold">Update Status:</label>
+                  <select id='status' class="form-select" name='status'>
+                    <option value='Open'>Open</option>
+                    <option value='Assigned'>Assigned</option>
+                    <option value='Under review'>Under review</option>
+                    <option value='Awaiting response'>Awaiting response</option>
+                    <option value='Working on it'>Working on it</option>
+                    <option value='Complete'>Complete</option>
+                  </select>
+                </div>
+                <div class="mb-3">
+                  <label for="dueDate" class="form-label fw-bold">Due Date: </label>
+                  <input type="date" class="form-control" id="dueDate" name="dueDate">
+                </div>
+                <div class="mb-3">
+                  <label for="assignedTech" class="form-label fw-bold">Assigned Tech: </label>
+
+                  {% comment %} <select id='assignedTech' class="form-select" name='assignedTech'>
+                    {% for (let i=0; i < techs.length; i++) %}
+                        {% if (ticket.assignedTech && ticket.assignedTech.email === techs[i].email) %}
+                          <option value='{{ techs[i].id }}' selected>
+                        {% else %}
+                          <option value='{{ techs[i].id }}'>
+                        {% endif %}
+                      
+                        {{ techs[i].firstName }}
+                        {{ techs[i].lastName }}
+                        </option>
+                    {% endfor %}
+                  </select> {% endcomment %}
+                </div>
+                <div class="mb-3">
+                  <label for='techNotes' class="form-label fw-bold">Tech Notes:</label>
+                  <textarea class="form-control" name="techNotes" id="techNotes"></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary" value="save">Update</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+{% endblock content %}

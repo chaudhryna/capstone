@@ -42,7 +42,9 @@
 					</button>
 
 					{% else %}
-						<a href="#" class="btn btn-primary">Update Ticket</a>
+						<a href="{% url 'update_ticket' ticket.id %}" class="btn btn-primary">
+							Update Ticket
+						</a>
 					{% endif %}
 				</div>
 			</div>
