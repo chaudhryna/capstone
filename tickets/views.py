@@ -6,8 +6,9 @@ from django.utils import timezone
 
 from helpdesk.decorators import it_staff_required
 
+from accounts.models import User
 from tickets.models import Ticket
-from tickets.forms import CreateTicketForm
+from tickets.forms import CreateTicketForm, UpdateTicketForm
 
 @login_required
 def create_ticket(request):
@@ -44,10 +45,25 @@ def ticket_detail(request, ticket_id):
 
 @it_staff_required
 def update_ticket(request, ticket_id):
+    techs = User.objects.filter(groups__name='IT Support').order_by('last_name').values()
     ticket = Ticket.objects.get(pk=ticket_id)
+    
+    if request.method == 'POST':
+        form = UpdateTicketForm(request.POST)
+    
+    if form.is_valid():
+        updated_ticket = form.save(commit=False)
+        updated_ticket.save()
+        
+        messages.success(request, f'The ticket has been updated.')
+        return redirect('')
+    else:
+        form = UpdateTicketForm()
     
     context = {
         'ticket': ticket,
+        'techs': techs,
+        'form': form,
     }
     return render(request, "tickets/update_ticket.html", context)
     

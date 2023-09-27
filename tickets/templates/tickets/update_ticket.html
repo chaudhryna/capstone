@@ -76,19 +76,13 @@ Submit a Ticket
                 <div class="mb-3">
                   <label for="assignedTech" class="form-label fw-bold">Assigned Tech: </label>
 
-                  {% comment %} <select id='assignedTech' class="form-select" name='assignedTech'>
-                    {% for (let i=0; i < techs.length; i++) %}
-                        {% if (ticket.assignedTech && ticket.assignedTech.email === techs[i].email) %}
-                          <option value='{{ techs[i].id }}' selected>
-                        {% else %}
-                          <option value='{{ techs[i].id }}'>
-                        {% endif %}
-                      
-                        {{ techs[i].firstName }}
-                        {{ techs[i].lastName }}
+                  <select id='assignedTech' class="form-select" name='assignedTech'>
+                    {% for tech in techs %}
+                        <option>
+                        {{ tech.last_name }}
                         </option>
                     {% endfor %}
-                  </select> {% endcomment %}
+                  </select>
                 </div>
                 <div class="mb-3">
                   <label for='techNotes' class="form-label fw-bold">Tech Notes:</label>

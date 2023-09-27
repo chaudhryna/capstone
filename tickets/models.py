@@ -31,7 +31,7 @@ class Ticket(models.Model):
     assigned_tech = models.ForeignKey(User, on_delete=models.SET_NULL,
                                       blank=True, null=True, related_name='assigned_tech')
     tech_notes = models.TextField(blank=True)
-    due_date = models.DateTimeField(null=True, blank=True)
+    due_date = models.DateField(null=True, blank=True)
 
     def __str__(self):
         return self.title

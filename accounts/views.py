@@ -79,6 +79,7 @@ def logout_view(request):
 def profile_view(request):
     user_id = request.user.id
     user_profile = Profile.objects.get(user_id=user_id)
+    
     # Add tickets to page if they exist
     if Ticket.objects.filter(customer=user_id).exists():
         user_tickets = Ticket.objects.filter(customer=user_id).order_by('-created_date')
