@@ -10,7 +10,7 @@ Submit a Ticket
 <!-- Messages -->
 {% include 'partials/_messages.html' %}
 
-<h1 class="my-3">Submit a New Ticket</h1>
+<h1 class="my-5 pt-5">Submit a New Ticket</h1>
 
     <form action="{% url 'create_ticket' %}" method="POST">
     {% csrf_token %}

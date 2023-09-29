@@ -14,19 +14,21 @@ Submit a Ticket
       <div class="card shadow p-3 mb-3 bg-custom rounded mt-5">
 
         <div class="card-body">
-          <h2 class="d-flex justify-content-between">Ticket Details <span class="status text-danger">
+          <h2 class="d-flex justify-content-between">Ticket Number:  {{ ticket.id }} <span class="status text-danger">
               {{ ticket.status }} 
             </span></h2>
           <hr>
           <div class="row">
             <div class="col-lg-6">
-              <h3>Number: {{ ticket.id }}  
-              </h3>
+              <h3>Details: </h3>
+              <p><strong>Created by: </strong>
+                {{ ticket.customer.first_name }} {{ ticket.customer.last_name}}
+              </p>
               <p><strong>Created on: </strong>
                 {{ ticket.created_date }} 
               </p>
                 <p><strong>Due date: </strong>
-                  {{ ticket.dueDate }}
+                  {{ ticket.due_date }}
                 </p>
             
                   <p><strong>Type of Issue: </strong>
@@ -42,55 +44,27 @@ Submit a Ticket
                   <hr>
                   {% if ticket.assignedTech %}
                     <p><strong>Assigned Tech:</strong>
-                        {{ ticket.assignedTech.firstName }} 
-                        {{ ticket.assignedTech.lastName }} 
+                        {{ ticket.assigned_tech.first_name }} 
+                        {{ ticket.assigned_tech.last_name }} 
                     </p>
                     {% endif %}
                       <hr>
                       <p><strong>Tech Notes:</strong></p>
                     <p>
-                        {{ ticket.techNotes.date }}   -
-                        {{ ticket.techNotes.body }}
+                        {{ tech_notes.created }} - {{ tech_notes.tech.last_name }}
+                        {{ tech_notes.note }}
                     </p>   
             </div>
 
             <div class="col-lg-6">
-              <h3>Update Ticket</h3>
+              <h3>Update Ticket:</h3>
               <form action="{% url 'update_ticket' ticket.id %}" method="POST">
-
-                <div class="mb-3">
-                  <label for='status' class="form-label fw-bold">Update Status:</label>
-                  <select id='status' class="form-select" name='status'>
-                    <option value='Open'>Open</option>
-                    <option value='Assigned'>Assigned</option>
-                    <option value='Under review'>Under review</option>
-                    <option value='Awaiting response'>Awaiting response</option>
-                    <option value='Working on it'>Working on it</option>
-                    <option value='Complete'>Complete</option>
-                  </select>
-                </div>
-                <div class="mb-3">
-                  <label for="dueDate" class="form-label fw-bold">Due Date: </label>
-                  <input type="date" class="form-control" id="dueDate" name="dueDate">
-                </div>
-                <div class="mb-3">
-                  <label for="assignedTech" class="form-label fw-bold">Assigned Tech: </label>
-
-                  <select id='assignedTech' class="form-select" name='assignedTech'>
-                    {% for tech in techs %}
-                        <option>
-                        {{ tech.last_name }}
-                        </option>
-                    {% endfor %}
-                  </select>
-                </div>
-                <div class="mb-3">
-                  <label for='techNotes' class="form-label fw-bold">Tech Notes:</label>
-                  <textarea class="form-control" name="techNotes" id="techNotes"></textarea>
-                </div>
-
-                <button type="submit" class="btn btn-primary" value="save">Update</button>
+                {% csrf_token %}
+                  {{ update_form|crispy }}
+                
+                  {{ notes_form|crispy }}
               </form>
+              </div>
             </div>
           </div>
         </div>

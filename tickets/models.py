@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from django.contrib.auth.models import Group
 
 from accounts.models import User, Profile
 
@@ -30,8 +31,19 @@ class Ticket(models.Model):
     created_date = models.DateTimeField(auto_now_add=True)
     assigned_tech = models.ForeignKey(User, on_delete=models.SET_NULL,
                                       blank=True, null=True, related_name='assigned_tech')
-    tech_notes = models.TextField(blank=True)
     due_date = models.DateField(null=True, blank=True)
 
     def __str__(self):
         return self.title
+    
+class TechNotes(models.Model):
+    tech = models.ForeignKey(User, on_delete=models.CASCADE, related_name='tech', blank=True, null=True)
+    ticket = models.ForeignKey(Ticket, on_delete=models.CASCADE, related_name='tech_notes')
+    note = models.TextField(blank=True)
+    created = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['created']
+
+    def __str__(self):
+        return 'Date: {} by {}'.format(self.created, self.tech)

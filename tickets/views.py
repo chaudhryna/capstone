@@ -8,7 +8,7 @@ from helpdesk.decorators import it_staff_required
 
 from accounts.models import User
 from tickets.models import Ticket
-from tickets.forms import CreateTicketForm, UpdateTicketForm
+from tickets.forms import CreateTicketForm, UpdateTicketForm, TechNotesForm
 
 @login_required
 def create_ticket(request):
@@ -49,21 +49,24 @@ def update_ticket(request, ticket_id):
     ticket = Ticket.objects.get(pk=ticket_id)
     
     if request.method == 'POST':
-        form = UpdateTicketForm(request.POST)
+        update_form = UpdateTicketForm(request.POST, instance=ticket)
+        notes_form = TechNotesForm(request.POST)
     
-    if form.is_valid():
-        updated_ticket = form.save(commit=False)
-        updated_ticket.save()
-        
-        messages.success(request, f'The ticket has been updated.')
-        return redirect('')
+        if update_form.is_valid():
+                update_form.save()
+                # notes_form.save()
+                messages.success(request, f'The ticket has been updated.')
+                return redirect('it_dashboard')
+            
     else:
-        form = UpdateTicketForm()
-    
+        update_form = UpdateTicketForm()
+        notes_form = TechNotesForm()
+
     context = {
         'ticket': ticket,
         'techs': techs,
-        'form': form,
+        'update_form': update_form,
+        'notes_form': notes_form,
     }
     return render(request, "tickets/update_ticket.html", context)
     
