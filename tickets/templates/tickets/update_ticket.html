@@ -42,7 +42,7 @@ Submit a Ticket
                     {{ ticket.details }} 
                   </p>
                   <hr>
-                  {% if ticket.assignedTech %}
+                  {% if ticket.assigned_tech %}
                     <p><strong>Assigned Tech:</strong>
                         {{ ticket.assigned_tech.first_name }} 
                         {{ ticket.assigned_tech.last_name }} 
@@ -50,10 +50,15 @@ Submit a Ticket
                     {% endif %}
                       <hr>
                       <p><strong>Tech Notes:</strong></p>
-                    <p>
-                        {{ tech_notes.created }} - {{ tech_notes.tech.last_name }}
-                        {{ tech_notes.note }}
-                    </p>   
+                       {% for tech_note in tech_notes %}
+                      <p>
+                        {{ tech_note.created }} - {{ tech_note.tech.last_name }}
+                      </p>
+                      <p>
+                          {{ tech_note.note }}
+                      </p>   
+                      <hr>
+                    {% endfor %}
             </div>
 
             <div class="col-lg-6">
@@ -61,8 +66,10 @@ Submit a Ticket
               <form action="{% url 'update_ticket' ticket.id %}" method="POST">
                 {% csrf_token %}
                   {{ update_form|crispy }}
-                
                   {{ notes_form|crispy }}
+                  <div class="d-grid mx-auto">
+                    <button class="btn btn-primary">Update Ticket</button>
+                  </div>
               </form>
               </div>
             </div>

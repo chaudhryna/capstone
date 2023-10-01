@@ -7,7 +7,7 @@ from django.utils import timezone
 from helpdesk.decorators import it_staff_required
 
 from accounts.models import User
-from tickets.models import Ticket
+from tickets.models import Ticket, TechNotes
 from tickets.forms import CreateTicketForm, UpdateTicketForm, TechNotesForm
 
 @login_required
@@ -54,19 +54,26 @@ def update_ticket(request, ticket_id):
     
         if update_form.is_valid():
                 update_form.save()
-                # notes_form.save()
-                messages.success(request, f'The ticket has been updated.')
-                return redirect('it_dashboard')
-            
+        if not notes_form.data['note']:
+            return redirect('it_dashboard')
+        elif notes_form.is_valid:
+            new_note = notes_form.save(commit=False)
+            new_note.tech = request.user
+            new_note.ticket = ticket
+            new_note.save()
+            messages.success(request, f'The ticket has been updated.')
+            return redirect('it_dashboard')
     else:
-        update_form = UpdateTicketForm()
+        update_form = UpdateTicketForm(instance=ticket)
         notes_form = TechNotesForm()
-
+        tech_notes = TechNotes.objects.filter(ticket=ticket).order_by('-created')
+        
     context = {
         'ticket': ticket,
         'techs': techs,
         'update_form': update_form,
         'notes_form': notes_form,
+        'tech_notes': tech_notes
     }
     return render(request, "tickets/update_ticket.html", context)
     
