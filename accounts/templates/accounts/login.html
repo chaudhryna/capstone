@@ -1,42 +1,55 @@
 {% extends "base.html" %} 
-{% load static %}
-
+{% load static %} 
 {% block content %}
 <div class="container">
+	<!-- Messages -->
+	{% include 'partials/_messages.html' %}
 
-<!-- Messages -->
-{% include 'partials/_messages.html' %}
+	<main class="d-flex justify-content-center flex-column mt-5 p-5">
+			<div class="card shadow p-4 mb-3 mt-5 w-80 m-auto">
+				<h2>
+					<img
+						class="mb-4"
+						src="{% static 'img/helpdesk.jpg' %}"
+						alt=""
+						width="50" />
+					Login
+				</h2>
 
-<main class="d-flex justify-content-center flex-column mt-5 pt-5">
-    <div class="w-95 m-auto">
-	<h2>
-        <img class="mb-4" src="{% static 'img/helpdesk.jpg' %}" alt="" width="50">
-        Login
-    </h2>
+				<form action="{% url 'login' %}" method="POST">
+					{% csrf_token %}
+					<div class="mb-4">
+						<label for="username required" class="form-label">
+							Username
+						</label>
+						<input
+							type="text"
+							autofocus
+							class="form-control"
+							id="username"
+							name="username"
+							aria-describedby="usernameHelp"
+							placeholder="Username" />
+					</div>
+					<div class="mb-4">
+						<label for="password" class="form-label required">
+							Password
+						</label>
+						<input
+							type="password"
+							class="form-control"
+							id="password"
+							name="password"
+							placeholder="Password" />
+					</div>
+					<button type="submit" class="btn btn-primary w-100 py-2">
+						Submit
+					</button>
+				</form>
 
-	<form action="{% url 'login' %}" method="POST">
-		{% csrf_token %}
-		<div class="mb-4">
-			<label for="username required" class="form-label">Username</label>
-			<input
-				type="text"
-				autofocus
-				class="form-control"
-				id="username"
-                name="username"
-				aria-describedby="usernameHelp"
-                placeholder="Username" />
-		</div>
-		<div class="mb-4">
-			<label for="password" class="form-label required">Password</label>
-			<input type="password" class="form-control" id="password" name="password" placeholder="Password" />
-		</div>
-		<button type="submit" class="btn btn-primary w-100 py-2">Submit</button>
-	</form>
-
-	<h4 class=mt-5>Don't have an account yet?</h4>
-	<a href="{% url 'register' %}">Register here.</a>
-    </div>
-</main>
+				<h4 class="mt-5">Don't have an account yet?</h4>
+				<a href="{% url 'register' %}">Register here.</a>
+			</div>
+	</main>
 </div>
 {% endblock content %}

@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="container">
+<div class="container pt-4">
 
 <!-- Messages -->
 {% include 'partials/_messages.html' %}
@@ -13,7 +13,6 @@
 
     <h4 class="my-3">Login in <a href="{% url 'login' %}">here</a> or create an account <a href="{% url 'register' %}">here.</a></h4>
     {% else %}
-        <h2>Welcome {{ user.first_name }}</h2>
         {% if tickets %}
             <!-- Tickets -->
             <div class="col-lg-12">

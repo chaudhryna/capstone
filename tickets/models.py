@@ -30,7 +30,7 @@ class Ticket(models.Model):
     details = models.TextField(blank=True)
     created_date = models.DateTimeField(auto_now_add=True)
     assigned_tech = models.ForeignKey(User, on_delete=models.SET_NULL,
-                                      blank=True, null=True, limit_choices_to={'is_staff':True}, related_name='assigned_tech')
+                                      blank=True, null=True, related_name='assigned_tech')
     due_date = models.DateField(null=True, blank=True)
 
     def __str__(self):

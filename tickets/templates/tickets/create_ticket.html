@@ -1,25 +1,25 @@
-{% extends 'base.html' %} 
+{% extends 'base.html' %}
 {% load crispy_forms_tags %}
 
 {% block title %}
 Submit a Ticket
-{% endblock title %} 
+{% endblock title %}
 
 {% block content %}
 <div class="container">
-<!-- Messages -->
-{% include 'partials/_messages.html' %}
+    <!-- Messages -->
+    {% include 'partials/_messages.html' %}
+    <div class="d-flex justify-content-center flex-column mt-5 pt-5">
+        <div class="card shadow bg-custom rounded p-4 m-auto mt-5 w-100">
+            <h1>Submit a New Ticket</h1>
+            <form action="{% url 'create_ticket' %}" method="POST">
+                {% csrf_token %}
 
-<h1 class="my-5 pt-5">Submit a New Ticket</h1>
+                {{ form|crispy }}
 
-    <form action="{% url 'create_ticket' %}" method="POST">
-    {% csrf_token %}
-
-    {{ form|crispy }}
-
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
-</div>
-
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
 </div>
 {% endblock content %}
