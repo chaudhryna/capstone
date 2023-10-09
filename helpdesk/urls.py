@@ -4,4 +4,5 @@ from helpdesk import views
 
 urlpatterns = [
     path('', views.it_dashboard, name='it_dashboard'),
+    path('tickets_by_tech/', views.tech_tickets, name='tickets_by_tech'),
 ]

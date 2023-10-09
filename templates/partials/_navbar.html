@@ -13,7 +13,7 @@
       <ul class="navbar-nav ms-auto mb-lg-0 d-flex align-items-center">
         {% if  perms.tickets %}
         <li class="nav-item">
-          <a class="nav-link" aria-current="page" href="{% url 'it_dashboard' %}">
+          <a class="nav-link" aria-current="page" data-bs-toggle="offcanvas" href="#offcanvasMenu" role="button" aria-controls="offcanvasMenu">
             IT Staff Dashboard
           </a>
         </li>
@@ -56,3 +56,5 @@
     </div>
   </div>
 </nav>
+<!-- Offcanvas -->
+{% include "partials/_offcanvas.html" %}
