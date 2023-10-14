@@ -1,5 +1,6 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.views.generic.detail import DetailView
 from django.utils import timezone
@@ -45,7 +46,7 @@ def ticket_detail(request, ticket_id):
 
 @it_staff_required
 def update_ticket(request, ticket_id):
-    techs = User.objects.filter(groups__name='IT Support').order_by('last_name').values()
+    # techs = User.objects.filter(groups__name='IT Support').order_by('last_name').values()
     ticket = Ticket.objects.get(pk=ticket_id)
     
     if request.method == 'POST':
@@ -54,8 +55,7 @@ def update_ticket(request, ticket_id):
     
         if update_form.is_valid():
                 update_form.save()
-        if not notes_form.data['note']:
-            return redirect('it_dashboard')
+                return redirect('it_dashboard')
         elif notes_form.is_valid:
             new_note = notes_form.save(commit=False)
             new_note.tech = request.user
@@ -66,14 +66,15 @@ def update_ticket(request, ticket_id):
     else:
         update_form = UpdateTicketForm(instance=ticket)
         notes_form = TechNotesForm()
-        tech_notes = TechNotes.objects.filter(ticket=ticket).order_by('-created')
+        
+    tech_notes = TechNotes.objects.filter(ticket=ticket).order_by('-created')
         
     context = {
         'ticket': ticket,
-        'techs': techs,
         'update_form': update_form,
         'notes_form': notes_form,
         'tech_notes': tech_notes
     }
+   
     return render(request, "tickets/update_ticket.html", context)
     

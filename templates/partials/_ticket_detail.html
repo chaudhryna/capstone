@@ -33,14 +33,14 @@
 			{% if ticket.assignedTech %}
 			<p>
 				<span class="text-muted">Assigned Tech: </span>
-				{{ ticket.assignedTech.user.firstName }} {{
-				ticket.assignedTech.user.lastName }}
+				{{ ticket.assignedTech.user.firstName }} 
+				{{ ticket.assignedTech.user.lastName }}
 			</p>
 			{% endif %}
 			<p class="text-muted">
 				Status:
 				<span class="text-danger fw-bold">
-					{{ ticket.status }}
+					{{ ticket.get_status_display }}
 				</span>
 			</p>
         </div>

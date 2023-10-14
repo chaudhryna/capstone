@@ -1,19 +1,143 @@
-{% extends 'base.html' %} 
-
-{% block content %}
+{% extends 'base.html' %} {% block content %}
 <div class="container pt-5">
 	<!-- Messages -->
 	{% include 'partials/_messages.html' %}
 
-	<h1 class="my-3 pt-4">All Tickets</h1>
+	<h1 class="my-3 pt-4">IT Dashboard</h1>
 
-	{% if tickets %}
-	<!-- Tickets -->
-	<div class="col-lg-12">
-		<!-- Tickets -->
-		{% include 'partials/_tickets.html' %}
+<!-- Tech Tickets-->
+	<div class="accordion mt-5" id="accordionTechTickets">
+		<div class="accordion-item">
+			<h2 class="accordion-header">
+				<button
+					class="accordion-button"
+					type="button"
+					data-bs-toggle="collapse"
+					data-bs-target="#collapseTechTickets"
+					aria-expanded="true"
+					aria-controls="collapseTechTickets">
+					<strong>Tickets Assigned to {{ request.user.last_name }}</strong>
+				</button>
+			</h2>
+			<div
+				id="collapseTechTickets"
+				class="accordion-collapse collapse"
+				data-bs-parent="#accordionTechTickets">
+				<div class="accordion-body">
+					<div class="bd-example-snippet bd-code-snippet">
+						<div class="bd-example m-0 border-0">
+							<table class="table table-striped">
+								<thead>
+									<tr>
+                    <th scope="col">Ticket Number</th>
+										<th scope="col">Status</th>
+										<th scope="col">Created Date</th>
+										<th scope="col">Type of Issue</th>
+										<th scope="col">Customer</th>
+										<th scope="col">Assigned Tech</th>
+                    <th scope="col">Update</th>
+									</tr>
+								</thead>
+								<tbody>
+									{% for ticket in tech_tickets %}
+									<tr>
+										<th scope="row">
+                      {{ ticket.id }}
+										</th>
+                    <td>{{ ticket.get_status_display }}</td>
+										<td>{{ ticket.created_date }}</td>
+										<td>
+											{{ ticket.get_type_of_issue_display }}
+										</td>
+										<td>
+											{{ ticket.customer.first_name }} 
+                      {{ ticket.customer.last_name }}
+										</td>
+										<td>
+											{{ ticket.assigned_tech.last_name }}
+										</td>
+                    <td>
+                      <a href="{% url 'update_ticket' ticket.id %}" class="btn btn-primary">
+                        <i class="fa-solid fa-pen-to-square"></i>
+						          </a>
+                    </td>
+									</tr>
+									{% endfor %}
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div><!--Tech Tickets end-->
+  <!-- All Tickets -->
+	<div class="accordion mt-5" id="accordionAllTickets">
+		<div class="accordion-item">
+			<h2 class="accordion-header">
+				<button
+					class="accordion-button"
+					type="button"
+					data-bs-toggle="collapse"
+					data-bs-target="#collapseAll"
+					aria-expanded="true"
+					aria-controls="collapseAll">
+					<strong>All Tickets</strong>
+				</button>
+			</h2>
+			<div
+				id="collapseAll"
+				class="accordion-collapse collapse"
+				data-bs-parent="#accordionAllTickets">
+				<div class="accordion-body">
+					<div class="bd-example-snippet bd-code-snippet">
+						<div class="bd-example m-0 border-0">
+							<table class="table table-striped">
+								<thead>
+									<tr>
+                    <th scope="col">Ticket Number</th>
+										<th scope="col">Status</th>
+										<th scope="col">Created Date</th>
+										<th scope="col">Type of Issue</th>
+										<th scope="col">Customer</th>
+										<th scope="col">Assigned Tech</th>
+									</tr>
+								</thead>
+								<tbody>
+									{% for ticket in tickets %}
+									<tr>
+                    <th scope="row">
+                      {{ ticket.id }}
+										</th>
+										<td>
+											{{ ticket.get_status_display }}
+										</td>
+										<td>{{ ticket.created_date }}</td>
+										<td>
+											{{ ticket.get_type_of_issue_display }}
+										</td>
+										<td>
+											{{ ticket.customer.first_name }} 
+                      {{ ticket.customer.last_name }}
+										</td>
+										<td>
+											{{ ticket.assigned_tech.last_name }}
+										</td>
+                    <td>
+                      <a href="{% url 'update_ticket' ticket.id %}" class="btn btn-primary">
+                        <i class="fa-solid fa-pen-to-square"></i>
+						          </a>
+                    </td>
+									</tr>
+									{% endfor %}
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
-	{% endif %} 
+<!-- All Tickets end -->
+	{% endblock content %}
 </div>
-
-{% endblock content %}

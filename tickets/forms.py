@@ -20,14 +20,14 @@ class UpdateTicketForm(ModelForm):
         model = Ticket
         fields = ("status", "due_date", "assigned_tech")
         
-        due_date = DateField(
-        widget=DateInput(format='%m/%d/%Y', attrs={'class': 'datepicker'}),
-        input_formats=('%m/%d/%Y', )
-        )
-        
         widgets = {
             'status': Select(attrs={'class': 'form-control'}),
-            # 'due_date': DateInput(format=('%m/%d/%Y'), attrs={'class':'form-control', 'placeholder':'Select a date', 'type':'date'}),
+            'due_date': DateInput(
+                attrs={
+                'type': 'date',
+                'class': 'form-control'
+                }
+            ),
             'assigned_tech': Select(attrs={'class': 'form-control'})
         }
         

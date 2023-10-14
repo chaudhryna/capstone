@@ -25,14 +25,14 @@
 					{% if ticket.assignedTech %}
 					<p class="card-text">
 						<span class="text-muted">Assigned Tech: </span>
-						{{ ticket.assignedTech.user.firstName }} {{
-						ticket.assignedTech.user.lastName }}
+						{{ ticket.assignedTech.user.firstName }} 
+						{{ ticket.assignedTech.user.lastName }}
 					</p>
 					{% endif %}
 					<p class="text-muted">
 						Status:
 						<span class="text-danger fw-bold">
-							{{ ticket.status }}
+							{{ ticket.get_status_display }}
 						</span>
 					</p>
 
@@ -42,6 +42,7 @@
 					</button>
 
 					{% else %}
+						<input type="hidden" name="next" value="{{ request.path }}">
 						<a href="{% url 'update_ticket' ticket.id %}" class="btn btn-primary">
 							Update Ticket
 						</a>
