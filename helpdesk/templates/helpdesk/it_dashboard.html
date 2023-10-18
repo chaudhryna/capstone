@@ -1,11 +1,49 @@
-{% extends 'base.html' %} {% block content %}
+{% extends 'base.html' %} 
+
+{% block content %}
 <div class="container pt-5">
 	<!-- Messages -->
 	{% include 'partials/_messages.html' %}
 
 	<h1 class="my-3 pt-4">IT Dashboard</h1>
-
-<!-- Tech Tickets-->
+	<!-- First row-->
+	<div class="row">
+        <!-- Tickets By Tech Chart -->
+      <div class="col">
+        <div class="card shadow mb-4">
+          <!-- Card Header -->
+          <div class="card-header">
+            <h4 class="m-0 font-weight-bold text-primary">
+              Number of Tickets Per Tech 
+            </h4>
+          </div>
+          <!-- Card Body -->
+          <div class="card-body">
+            <div class="d-flex justify-content-center">
+              <canvas id="techChart"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    <!-- Begin tickets by type-->
+    <div class="col">
+      <div class="card shadow mb-4">
+        <div class="card-header">
+          <h4 class="m-0 font-weight-bold text-primary">
+            Tickets By Type
+          </h4>
+        </div>
+        <div class="card-body">
+		  	<div class="d-flex justify-content-center">
+            	<canvas id="typeTicketChart"></canvas>
+			</div>
+        </div>
+      </div>
+    </div>
+		<!--end card for tickets by type -->
+  </div>
+	<!-- First row ends-->
+	<!-- Tech Tickets-->
 	<div class="accordion mt-5" id="accordionTechTickets">
 		<div class="accordion-item">
 			<h2 class="accordion-header">
@@ -16,7 +54,9 @@
 					data-bs-target="#collapseTechTickets"
 					aria-expanded="true"
 					aria-controls="collapseTechTickets">
-					<strong>Tickets Assigned to {{ request.user.last_name }}</strong>
+					<strong>
+						Tickets Assigned to {{ request.user.last_name}}
+					</strong>
 				</button>
 			</h2>
 			<div
@@ -29,38 +69,39 @@
 							<table class="table table-striped">
 								<thead>
 									<tr>
-                    <th scope="col">Ticket Number</th>
+										<th scope="col">Ticket Number</th>
 										<th scope="col">Status</th>
 										<th scope="col">Created Date</th>
 										<th scope="col">Type of Issue</th>
 										<th scope="col">Customer</th>
 										<th scope="col">Assigned Tech</th>
-                    <th scope="col">Update</th>
+										<th scope="col">Update</th>
 									</tr>
 								</thead>
 								<tbody>
 									{% for ticket in tech_tickets %}
 									<tr>
-										<th scope="row">
-                      {{ ticket.id }}
-										</th>
-                    <td>{{ ticket.get_status_display }}</td>
+										<th scope="row">{{ ticket.id }}</th>
+										<td>{{ ticket.get_status_display }}</td>
 										<td>{{ ticket.created_date }}</td>
 										<td>
 											{{ ticket.get_type_of_issue_display }}
 										</td>
 										<td>
 											{{ ticket.customer.first_name }} 
-                      {{ ticket.customer.last_name }}
+											{{ ticket.customer.last_name }}
 										</td>
 										<td>
 											{{ ticket.assigned_tech.last_name }}
 										</td>
-                    <td>
-                      <a href="{% url 'update_ticket' ticket.id %}" class="btn btn-primary">
-                        <i class="fa-solid fa-pen-to-square"></i>
-						          </a>
-                    </td>
+										<td>
+											<a
+												href="{% url 'update_ticket' ticket.id %}"
+												class="btn btn-primary">
+												<i
+													class="fa-solid fa-pen-to-square"></i>
+											</a>
+										</td>
 									</tr>
 									{% endfor %}
 								</tbody>
@@ -70,9 +111,10 @@
 				</div>
 			</div>
 		</div>
-	</div><!--Tech Tickets end-->
-  <!-- All Tickets -->
-	<div class="accordion mt-5" id="accordionAllTickets">
+	</div>
+	<!--Tech Tickets end-->
+	<!-- All Tickets -->
+	<div class="accordion mt-5 mb-5" id="accordionAllTickets">
 		<div class="accordion-item">
 			<h2 class="accordion-header">
 				<button
@@ -95,7 +137,7 @@
 							<table class="table table-striped">
 								<thead>
 									<tr>
-                    <th scope="col">Ticket Number</th>
+										<th scope="col">Ticket Number</th>
 										<th scope="col">Status</th>
 										<th scope="col">Created Date</th>
 										<th scope="col">Type of Issue</th>
@@ -106,28 +148,27 @@
 								<tbody>
 									{% for ticket in tickets %}
 									<tr>
-                    <th scope="row">
-                      {{ ticket.id }}
-										</th>
-										<td>
-											{{ ticket.get_status_display }}
-										</td>
+										<th scope="row">{{ ticket.id }}</th>
+										<td>{{ ticket.get_status_display }}</td>
 										<td>{{ ticket.created_date }}</td>
 										<td>
-											{{ ticket.get_type_of_issue_display }}
+											{{ ticket.get_type_of_issue_display}}
 										</td>
 										<td>
 											{{ ticket.customer.first_name }} 
-                      {{ ticket.customer.last_name }}
+											{{ ticket.customer.last_name }}
 										</td>
 										<td>
 											{{ ticket.assigned_tech.last_name }}
 										</td>
-                    <td>
-                      <a href="{% url 'update_ticket' ticket.id %}" class="btn btn-primary">
-                        <i class="fa-solid fa-pen-to-square"></i>
-						          </a>
-                    </td>
+										<td>
+											<a
+												href="{% url 'update_ticket' ticket.id %}"
+												class="btn btn-primary">
+												<i
+													class="fa-solid fa-pen-to-square"></i>
+											</a>
+										</td>
 									</tr>
 									{% endfor %}
 								</tbody>
@@ -138,6 +179,8 @@
 			</div>
 		</div>
 	</div>
-<!-- All Tickets end -->
-	{% endblock content %}
+	<!-- All Tickets end -->
 </div>
+{% endblock content %}
+
+

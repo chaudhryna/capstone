@@ -2,7 +2,7 @@
 {% if tickets %}
 <div class="container">
 	<div class="row">
-	{% for ticket in tickets %}
+		{% for ticket in tickets %}
 		<div class="col-lg-6 mb-4">
 			<div class="card shadow">
 				<div class="card-header">
@@ -52,7 +52,6 @@
 		</div>
 		{% include "partials/_ticket_detail.html" %}
 		{% endfor %}
-		
 	</div>
 </div>
 

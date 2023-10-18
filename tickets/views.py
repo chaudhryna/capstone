@@ -1,9 +1,6 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
-from django.views.generic.detail import DetailView
-from django.utils import timezone
 
 from helpdesk.decorators import it_staff_required
 
@@ -43,6 +40,7 @@ def ticket_detail(request, ticket_id):
         'ticket': ticket,
     }
     return render(request, "partials/_ticket_detail.html", context)
+
 
 @it_staff_required
 def update_ticket(request, ticket_id):

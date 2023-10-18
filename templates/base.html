@@ -14,6 +14,8 @@
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     <!-- cropper -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.0/cropper.min.css" integrity="sha512-gNSHyKCA9X3fCDdTd5UxyNaSznSyGtR9pwf5YwSp7haDRz6Gqor0nY20POCYLseXq5n/FGAEogNp7G0d56d3jg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!--Chart.js-->
+	<script src="https://cdn.jsdelivr.net/npm/chart.js@4.2.1/dist/chart.umd.min.js"></script>
     <!-- Custom -->
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
@@ -25,7 +27,6 @@
 {% endblock content %}
 
 <script src="{% static 'js/bootstrap.bundle.min.js' %} "></script>
-<script src="{% static 'js/darkmodetoggle.js' %}"></script>
 <!--Cropper scripts -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.0/cropper.min.js" integrity="sha512-7C1FbUL8fX5IKwBEHEjwyyGssfSOKms2NQbMj3GYdeQTr4Xmbrk/q/4eqcDuROAbJwT71ATVpVIUiaeMnNqq/Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="{% static 'js/main.js' defer %}"></script>

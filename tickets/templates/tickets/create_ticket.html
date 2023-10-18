@@ -16,8 +16,8 @@ Submit a Ticket
                 {% csrf_token %}
 
                 {{ form|crispy }}
-
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary me-3">Submit</button>
+                <button type="button"  onclick="history.back()" class="btn btn-outline-secondary">Cancel</button>
             </form>
         </div>
     </div>

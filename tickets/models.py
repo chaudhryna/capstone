@@ -36,6 +36,9 @@ class Ticket(models.Model):
     def __str__(self):
         return f"{self.id} - {self.title}"
     
+    def total_by_type(self):
+        return self.type_of_issue.count()
+    
 class TechNotes(models.Model):
     tech = models.ForeignKey(User, on_delete=models.CASCADE)
     ticket = models.ForeignKey(Ticket, on_delete=models.CASCADE, related_name='tech_notes')
