@@ -95,8 +95,8 @@ There is also a decorators.py file that imports a "user_passes_test" decorator f
 ### How to Run the Program Locally
   
 The user can download the code from [github.com](https://github.com/chaudhryna/capstone).  Then they will need to:
-```[tasklist]
-### My tasks
+
+### Tasks
 - [ ] setup a virtual environment
 - [ ] run the virtual environment
 - [ ] install files from the requirements.txt file including django 
@@ -112,7 +112,6 @@ The user can download the code from [github.com](https://github.com/chaudhryna/c
     - DB_PORT (if in development and localhost this is usually 5432 for Postgres)
 
 - [ ] setup a superuser account to access the admin area of the project 
-```
 
 That should be everything.
 
