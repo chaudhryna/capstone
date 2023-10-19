@@ -1,11 +1,8 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout 
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from django.core.files.storage import FileSystemStorage
-from django.http import HttpResponse
 from django.db import IntegrityError
-from django.urls import reverse
 
 from accounts.models import User, Profile
 from tickets.models import Ticket
@@ -96,8 +93,6 @@ def profile_view(request):
 
 @login_required
 def update_profile(request):
-    user_id = request.user.id 
-    user_profile = get_object_or_404(Profile, pk=user_id)
     
     if request.method == 'POST':
         form = UpdateProfileForm(
@@ -110,7 +105,4 @@ def update_profile(request):
     else:
         form = UpdateProfileForm(instance=request.user.profile)
     
-    context = {
-        'form': form,
-    }
     return redirect('profile.html')
