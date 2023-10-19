@@ -96,11 +96,12 @@ There is also a decorators.py file that imports a "user_passes_test" decorator f
   
 The user can download the code from [github.com](https://github.com/chaudhryna/capstone).  Then they will need to:
 ```[tasklist]
--[] setup a virtual environment
--[] run the virtual environment
--[] install files from the requirements.txt file including django 
--[] setup a Postgres database (with a name of their choice)
--[] create a .env file in the capstone folder with their own values for:
+### My tasks
+- [ ] setup a virtual environment
+- [ ] run the virtual environment
+- [ ] install files from the requirements.txt file including django 
+- [ ] setup a Postgres database (with a name of their choice)
+- [ ] create a .env file in the capstone folder with their own values for:
 
     - DEBUG (True if in development and False if in production)
     - SECRET_KEY (The django secret key that's created when they install django)
@@ -110,7 +111,7 @@ The user can download the code from [github.com](https://github.com/chaudhryna/c
     - DB_HOST (if in development this will be localhost)
     - DB_PORT (if in development and localhost this is usually 5432 for Postgres)
 
--[] setup a superuser account to access the admin area of the project 
+- [ ] setup a superuser account to access the admin area of the project 
 ```
 
 That should be everything.
