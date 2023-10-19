@@ -12,9 +12,9 @@ To take care of this I made the ticket super simple to fill out and had a field 
 
 ### Why it's Distinctive and Complex
 
-The other Django projects that we've built in this course have a project that contained one app.  I built a project called "Capstone" and three apps called "Accounts", "Tickets", and "Helpdesk".  I broke the project into 3 apps so that individual apps could be reused and new apps apped as needed. [This is a feature mentioned in the Django official docs.](https://docs.djangoproject.com/en/4.2/ref/applications/)  
+The other Django projects that we've built in this course have a project that contained one app.  I built a project called "Capstone" and three apps called "Accounts", "Tickets", and "Helpdesk".  I broke the project into 3 apps so that individual apps could be reused and new apps added as needed. [This is a feature mentioned in the Django official docs.](https://docs.djangoproject.com/en/4.2/ref/applications/)  
 
-I also used the Group model to apply permissions to the IT Staff so that certain views and database permissions were restricted to the staff only.  I created the group in the Django admin area where I also added the users, but I also created a "decorators.py" file in the Helpdesk app to check if the user was in the group so that I could use the decorator in views to restrict access to the IT team.
+I also used the Group model to apply permissions to the IT Staff so that certain views and database permissions were restricted to the staff only.  I created the group in the Django admin area where I also added the users, but then I created a "decorators.py" file in the Helpdesk app to check if the user was in the group so that I could use the decorator in views to restrict access to the IT team.
 
 ### What's Contained in Each File that I Created
 
@@ -32,17 +32,18 @@ The top level also contains a requirements.txt file that lists all of the progra
 
 The files that I installed that need to be there are:
 - django-crispy-forms==2.0. Used to make the forms look nicer.
-- [django-environ==0.10.0] (https://django-environ.readthedocs.io/en/latest/) Used to create environment variables in a .env file. 
-- [Pillow==10.0.0] (https://pypi.org/project/Pillow/) A Python imaging library 
+- [django-environ==0.10.0](https://django-environ.readthedocs.io/en/latest/) Used to create environment variables in a .env file. 
+- [Pillow==10.0.0](https://pypi.org/project/Pillow/) A Python imaging library 
 - [psycopg==3.1.10](https://www.psycopg.org/psycopg3/docs/basic/install.html) Both psycopy and psycopy-binary are needed for connecting to PostgreSQL 
 - psycopg-binary==3.1.10 
 - [whitenoise==6.5.0](https://whitenoise.readthedocs.io/en/latest/) This is used to simplify static file serving. 
 
-In addition to these files at the top layer there is a .gitignore file and the "venv" folder for the virtual environment.  To run the virtual environment of a Mac type: ``` source venv/bin/activate```.
+In addition to these files at the top layer there is a .gitignore file and the "venv" folder for the virtual environment.  The media, .env, and venv files are not uploaded to github.
 
-There is a media folder with a default profile image called "default.jpg" and a subfolder under the media folder for the user uploaded images called "profile_pics".
+There is a media folder with a default profile image called "default.jpg" and a subfolder under the media folder for the user uploaded images called "profile_pics". This will need to be recreated if the project is downloaded.
 
-There is a static folder with 4 subfolders: 
+There is a static folder with 4 subfolders that will also need to be recreated.  The static subfolders are:
+
 - css: That contains css files for Fontawesome, Bootstrap 5 minified and Bootstrap 5 map, and finally a local styles.css file.
 - img: Containing the favicon.ico for the browser tab, the helpdesk.jpg file used in various forms, and the logo.png used in the navbar.
 - js: Containing a cropperjs subfolder with all the files for cropperjs. The js folder also contains the bootstrap bundle minified js file as well as the bootstrap bundle map.  The final file in the js folder is called "main.js" and contains the JavaScript that I used to customize the Chart.js and Cropper.js that I used in the program.
@@ -72,7 +73,7 @@ There is a templates folder with the following templates:
 - register.html
 
 #### Tickets App
-This app handles the logic of creating, updating, deleting, and reading tickets.  The urls.py file handels all the routes for these database functions. 
+This app handles the logic of creating, updating, deleting, and reading tickets.  The urls.py file handles all the routes for these database functions. 
 
 There are two models in the app: Ticket and TechNotes.  The views.py file contains the logic to create and update the ticket as well as show the ticket detail. The update_ticket logic calls a decorator.py file from the helpdesk app to limit the access of this view to the IT Support team.
 
@@ -94,11 +95,13 @@ There is also a decorators.py file that imports a "user_passes_test" decorator f
 ### How to Run the Program Locally
   
 The user can download the code from [github.com](https://github.com/chaudhryna/capstone).  Then they will need to:
+
  -[] setup a virtual environment
  -[] run the virtual environment
  -[] install files from the requirements.txt file including django 
  -[] setup a Postgres database (with a name of their choice)
  -[] create a .env file in the capstone folder with their own values for:
+
     - DEBUG (True if in development and False if in production)
     - SECRET_KEY (The django secret key that's created when they install django)
     - DB_NAME (What they set their database name to)
@@ -106,6 +109,7 @@ The user can download the code from [github.com](https://github.com/chaudhryna/c
     - DB_PASSWORD (The password that account uses to login)
     - DB_HOST (if in development this will be localhost)
     - DB_PORT (if in development and localhost this is usually 5432 for Postgres)
+    
 -[] setup a superuser account to access the admin area of the project 
 
 That should be everything.
