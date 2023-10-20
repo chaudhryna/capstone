@@ -52,15 +52,16 @@ def update_ticket(request, ticket_id):
         notes_form = TechNotesForm(request.POST)
     
         if update_form.is_valid():
-                update_form.save()
-                return redirect('it_dashboard')
-        elif notes_form.is_valid:
+            update_form.save()
+            
+        if notes_form.is_valid:
             new_note = notes_form.save(commit=False)
             new_note.tech = request.user
             new_note.ticket = ticket
             new_note.save()
-            messages.success(request, f'The ticket has been updated.')
-            return redirect('it_dashboard')
+
+        messages.success(request, f'The ticket has been updated.')
+        return redirect('it_dashboard')
     else:
         update_form = UpdateTicketForm(instance=ticket)
         notes_form = TechNotesForm()
